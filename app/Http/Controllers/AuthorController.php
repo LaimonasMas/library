@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -88,7 +93,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        if($author->authorBooks->count()){
+        if($author->authorBooks->count() !== 0){
             return 'Trinti negalima, nes turi knygų';
         }
         $author->delete();
