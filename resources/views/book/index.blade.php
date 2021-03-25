@@ -5,23 +5,26 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">KNYGOS</div>
+                <div class="card-header">Books list</div>
 
                 <div class="card-body">
                     @foreach ($books as $key => $book)
-                    <h3>{{$book->title}}</h3>
-                    <h4>{{$book->bookAuthor->name}} {{$book->bookAuthor->surname}}</h4>                    
-                    <div class="form-group">
-                    <a href="{{route('book.edit',[$book])}}">
-                        <button type="button" class="btn btn-outline-secondary btn-sm">EDIT</button>
-                    </a>
-                    </div>             
-                    <form method="POST" action="{{route('book.destroy', [$book])}}">
-                        @csrf
-                        <button class="btn btn-outline-danger btn-sm" type="submit">DELETE</button>
-                    </form>             
-                    <br>
-                    @endforeach
+                    <li class="list-group-item list-line">
+                        <div>
+                            <h5>{{$book->title}}</h5>
+                            {{$book->bookAuthor->name}} {{$book->bookAuthor->surname}}
+                        </div>
+<div class="list-line__buttons">
+                        <div class="form-group">
+                            <a class="btn btn-outline-secondary btn-sm" href="{{route('book.edit',[$book])}}">EDIT</a>
+                        </div>
+                        <form method="POST" action="{{route('book.destroy', [$book])}}">
+                            @csrf
+                            <button class="btn btn-outline-danger btn-sm" type="submit">DELETE</button>
+                        </form>
+                        <div class="list-line__buttons">
+                        </li>
+                        @endforeach
                 </div>
             </div>
         </div>
