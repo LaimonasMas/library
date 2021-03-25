@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -11,12 +12,12 @@
                     <form method="POST" action="{{route('author.store')}}">
                         <div class="form-group">
                             <label>Name: </label>
-                            <input type="text" class="form-control" name="author_name">
+                            <input type="text" class="form-control" name="author_name" value="{{old('author_name')}}">
                             <small class="form-text text-muted">Please enter author name</small>
                         </div>
                         <div class="form-group">
                             <label>Surname: </label>
-                            <input type="text" class="form-control" name="author_surname">
+                            <input type="text" class="form-control" name="author_surname" value="{{old('author_surname')}}">
                             <small class="form-text text-muted">Please enter author surname</small>
                         </div>
                         @csrf

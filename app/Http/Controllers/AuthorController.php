@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Validator;
 
 class AuthorController extends Controller
 {
@@ -41,6 +42,21 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'author_name' => ['required', 'min:3', 'max:64'],
+                'author_surname' => ['required', 'min:3', 'max:64'],
+            ],
+            [
+                'author_surname.min' => 'The author surname must be at least 3 characters.'
+            ]
+        );
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         Author::create($request);
         return redirect()->route('author.index')->with('success_message', 'The author was created. Nice job!');
     }
@@ -53,7 +69,6 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        
     }
 
     /**
@@ -76,6 +91,21 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'author_name' => ['required', 'min:3', 'max:64'],
+                'author_surname' => ['required', 'min:3', 'max:64'],
+            ],
+            [
+                'author_surname.min' => 'mano zinute'
+            ]
+        );
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $author->name = $request->author_name;
         $author->surname = $request->author_surname;
         $author->save();
@@ -90,7 +120,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        if($author->authorBooks->count() !== 0){
+        if ($author->authorBooks->count() !== 0) {
             return redirect()->route('author.index')->with('info_message', 'The author has books and cannot be deleted.');
         }
         $author->delete();

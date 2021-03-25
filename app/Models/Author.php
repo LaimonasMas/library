@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 
+
 class Author extends Model
 {
     use HasFactory;
