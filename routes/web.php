@@ -28,6 +28,7 @@ Route::group(['prefix' => 'authors'], function(){
     Route::get('create', [AuthorController::class, 'create'])->name('author.create');
     Route::post('store', [AuthorController::class, 'store'])->name('author.store');
     Route::get('edit/{author}', [AuthorController::class, 'edit'])->name('author.edit');
+    //         |url eiluteje|                   |metodas klasėje|   |siejasi su <form action="{{route('author.destroy', [$author])}}"> arba <a href="{{route('author.edit',[$author])}}">|
     Route::post('update/{author}', [AuthorController::class, 'update'])->name('author.update');
     Route::post('delete/{author}', [AuthorController::class, 'destroy'])->name('author.destroy');
     Route::get('show/{author}', [AuthorController::class, 'show'])->name('author.show');
