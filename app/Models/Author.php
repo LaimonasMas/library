@@ -11,12 +11,19 @@ use Illuminate\Http\Request;
 class Author extends Model
 {
     use HasFactory;
-    public static function create($request)
+    public static function create(Request $request)
     {
         $author = new self;
         $author->name = $request->author_name;
         $author->surname = $request->author_surname;
         $author->save();
+    }
+
+    public function edit(Request $request)
+    {
+        $this->name = $request->author_name;
+        $this->surname = $request->author_surname;
+        $this->save();
     }
 
 

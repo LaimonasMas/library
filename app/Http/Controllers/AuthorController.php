@@ -18,9 +18,24 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::all();
+    // rusiavimas prasideda --------------
+        $authors = $request->sort ? Author::orderBy('surname', 'desc')->get() : Author::all();
+
+        if ('name' == $request->sort) {
+            $authors = Author::orderBy('name')->get();
+        } else if ('surname' == $request->sort) {
+            $authors = Author::orderBy('surname')->get();
+        } else {
+            $authors = Author::all();
+        }
+
+        // $authors = Author::all(); // $authors yra kolekcija
+        // $authors = Author::orderBy('surname', 'desc')->get();
+                                            // be desc rusius nuo a iki z
+    // rusiavimas baigiasi ----------------                                          
+
         return view('author.index', ['authors' => $authors]);
     }
 
@@ -46,12 +61,17 @@ class AuthorController extends Controller
             $request->all(),
             [
                 'author_name' => ['required', 'min:3', 'max:64'],
+                //                                      tiek uzrasem migration, kad telpa 64 duombazej
                 'author_surname' => ['required', 'min:3', 'max:64'],
             ],
+
             [
+                'author_name.required' => 'The author name must entered.',
+                'author_surname.required' => 'The author surname must entered.',
                 'author_surname.min' => 'The author surname must be at least 3 characters.'
             ]
         );
+
         if ($validator->fails()) {
             $request->flash();
             return redirect()->back()->withErrors($validator);
@@ -95,20 +115,22 @@ class AuthorController extends Controller
             $request->all(),
             [
                 'author_name' => ['required', 'min:3', 'max:64'],
+                //                                      tiek uzrasem migration, kad telpa 64 duombazej
                 'author_surname' => ['required', 'min:3', 'max:64'],
             ],
+
             [
-                'author_surname.min' => 'mano zinute'
+                'author_name.required' => 'The author name must entered.',
+                'author_surname.required' => 'The author surname must entered.',
+                'author_surname.min' => 'The author surname must be at least 3 characters.'
             ]
         );
+
         if ($validator->fails()) {
             $request->flash();
             return redirect()->back()->withErrors($validator);
         }
-
-        $author->name = $request->author_name;
-        $author->surname = $request->author_surname;
-        $author->save();
+        $author->edit($request);
         return redirect()->route('author.index')->with('success_message', 'Sėkmingai pakeistas.');
     }
 
