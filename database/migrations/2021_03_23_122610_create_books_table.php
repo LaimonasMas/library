@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('title', 255);
             $table->string('isbn', 20);
             $table->integer('pages');
-            $table->text('about');
+            $table->text('about'); // $table->text('about')->nullable() <--- laukelis bus NErequired
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('authors');
             $table->timestamps();

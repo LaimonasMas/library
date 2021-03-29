@@ -21,7 +21,7 @@ class AuthorController extends Controller
     public function index(Request $request)
     {
     // rusiavimas prasideda --------------
-        $authors = $request->sort ? Author::orderBy('surname', 'desc')->get() : Author::all();
+        // $authors = $request->sort ? Author::orderBy('surname', 'desc')->get() : Author::all();
 
         if ('name' == $request->sort) {
             $authors = Author::orderBy('name')->get();

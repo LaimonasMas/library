@@ -11,22 +11,22 @@
                     <form method="POST" action="{{route('book.update',[$book])}}">
                         <div class="form-group">
                             <label>Title: </label>
-                            <input type="text" class="form-control" name="book_title" value="{{$book->title}}">
+                            <input type="text" class="form-control" name="book_title" value="{{old('book_title', $book->title)}}">
                             <small class="form-text text-muted">Please enter book title</small>
                         </div>
                         <div class="form-group">
                             <label>ISBN: </label>
-                            <input type="text" class="form-control" name="book_isbn" value="{{$book->isbn}}">
+                            <input type="text" class="form-control" name="book_isbn" value="{{old('book_isbn', $book->isbn)}}">
                             <small class="form-text text-muted">Please enter ISBN number</small>
                         </div>
                         <div class="form-group">
                             <label>Pages: </label>
-                            <input type="text" class="form-control" name="book_pages" value="{{$book->pages}}">
+                            <input type="text" class="form-control" name="book_pages" value="{{old('book_pages', $book->pages)}}">
                             <small class="form-text text-muted">Please enter number of pages</small>
                         </div>
                         <div class="form-group">
                         <label>About: </label>
-                        <textarea class="form-control" id="summernote" name="book_about">{{$book->about}}</textarea>
+                        <textarea class="form-control" id="summernote" name="book_about">{{old('book_about', $book->about)}}</textarea>
                         <small class="form-text text-muted">Please enter book description</small>
                         </div>
                         <div class="form-group">

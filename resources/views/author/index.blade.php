@@ -15,8 +15,8 @@
                     <ul class="list-group">
                         @foreach ($authors as $author)
                         <li class="list-group-item list-line">
-                            <div>
-                                <h5>{{$author->name}} {{$author->surname}}</h5>
+                            <div class="list-line__books">
+                                <div class="list-line__books__title">{{$author->name}} {{$author->surname}}</div>
                             </div>
                             <div class="list-line__buttons">
                                 <a href="{{route('author.edit',[$author])}}" class="btn btn-outline-secondary btn-sm">EDIT</a>

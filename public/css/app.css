@@ -10956,4 +10956,42 @@ a.text-dark:focus {
   margin: 5px;
 }
 
+.list-line__books {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-line__books__title {
+  font-weight: bold;
+}
+
+.list-line__books__author {
+  color: grey;
+  font-size: 80%;
+  font-style: italic;
+}
+
+.make-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.make-inline.column {
+  flex-direction: column;
+  height: 37px;
+  justify-content: center;
+  margin: 0 12px;
+}
+
+.make-inline select,
+.make-inline label,
+.make-inline input {
+  margin: 0 6px;
+}
+
+.make-inline .form-group {
+  margin-bottom: 0;
+}
+
 
