@@ -66,8 +66,8 @@ class AuthorController extends Controller
             ],
 
             [
-                'author_name.required' => 'The author name must entered.',
-                'author_surname.required' => 'The author surname must entered.',
+                'author_name.required' => 'The author name must be entered.',
+                'author_surname.required' => 'The author surname must be entered.',  
                 'author_surname.min' => 'The author surname must be at least 3 characters.'
             ]
         );
@@ -120,8 +120,8 @@ class AuthorController extends Controller
             ],
 
             [
-                'author_name.required' => 'The author name must entered.',
-                'author_surname.required' => 'The author surname must entered.',
+                'author_name.required' => 'The author name must be entered.',
+                'author_surname.required' => 'The author surname must be entered.',
                 'author_surname.min' => 'The author surname must be at least 3 characters.'
             ]
         );
