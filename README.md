@@ -18,6 +18,7 @@ This is a simple Library application which was built for studying purposes only.
 - CRUD
 - Bootstrap
 - Login
+- Form Validation
 
 ### Authors
 [Laimonas](https://github.com/LaimonasMas/)
