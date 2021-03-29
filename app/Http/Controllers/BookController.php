@@ -139,13 +139,13 @@ class BookController extends Controller
                 'book_title' => ['required', 'min:1', 'max:64'],
                 'book_isbn' => ['required', 'min:10', 'max:13'],
                 'book_pages' => ['required', 'integer', 'min:1', 'max:10000'],
-                'book_about' => ['required', 'min:1', 'max:200'],
+                'book_about' => ['required', 'min:1', 'max:200']
             ],
 
             [
                 'book_title.required' => 'The book title must be entered.',
                 'book_isbn.required' => 'The ISBN number must be entered.',
-                'book_pages.required' => 'The number of pages must be entered.',
+                'book_pages.required' => 'The number of pages must be entered.'
             ]
         );
 
