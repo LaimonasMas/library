@@ -70,6 +70,27 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'book_title' => ['required', 'min:1', 'max:64'],
+                'book_isbn' => ['required', 'min:10', 'max:13'],
+                'book_pages' => ['required', 'integer', 'min:1', 'max:10000'],
+                'book_about' => ['required', 'min:1', 'max:200'],
+            ],
+
+            [
+                'book_title.required' => 'The book title must be entered.',
+                'book_isbn.required' => 'The ISBN number must be entered.',
+                'book_pages.required' => 'The number of pages must be entered.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $book = new Book;
         $book->title = $request->book_title;
         $book->isbn = $request->book_isbn;
@@ -112,6 +133,27 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'book_title' => ['required', 'min:1', 'max:64'],
+                'book_isbn' => ['required', 'min:10', 'max:13'],
+                'book_pages' => ['required', 'integer', 'min:1', 'max:10000'],
+                'book_about' => ['required', 'min:1', 'max:200'],
+            ],
+
+            [
+                'book_title.required' => 'The book title must be entered.',
+                'book_isbn.required' => 'The ISBN number must be entered.',
+                'book_pages.required' => 'The number of pages must be entered.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $book->title = $request->book_title;
         $book->isbn = $request->book_isbn;
         $book->pages = $request->book_pages;
