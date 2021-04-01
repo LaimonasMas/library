@@ -7,7 +7,6 @@
                 <div class="card-header">
                     <h2>Publishers List</h2>
                     <a class="a-padding-right" href="{{route('publisher.index', ['sort' => 'title'])}}">Sort by title</a>
-                    <a class="a-padding-right" href="{{route('publisher.index', ['sort' => 'surtitle'])}}">Sort by surtitle</a>
                     <a class="a-padding-right" href="{{route('publisher.index')}}">Default</a>
                 </div>
                 <div class="card-body">

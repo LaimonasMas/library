@@ -57,13 +57,10 @@ class PublisherController extends Controller
             $request->all(),
             [
                 'publisher_title' => ['required', 'min:3', 'max:64'],
-                //                                      tiek uzrasem migration, kad telpa 64 duombazej
-
             ],
 
             [
-                'publisher_title.required' => 'The publisher title must be entered.',
-
+                'publisher_title.required' => 'The publisher must be entered.',
             ]
         );
 
@@ -82,7 +79,7 @@ class PublisherController extends Controller
      * @param  \App\Models\publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function show(publisher $publisher)
+    public function show(Publisher $publisher)
     {
     }
 
@@ -110,13 +107,10 @@ class PublisherController extends Controller
             $request->all(),
             [
                 'publisher_title' => ['required', 'min:3', 'max:64'],
-                //                                      tiek uzrasem migration, kad telpa 64 duombazej
-
             ],
 
             [
-                'publisher_title.required' => 'The publisher title must be entered.',
-
+                'publisher_title.required' => 'The publisher must be entered.',
             ]
         );
 
@@ -125,7 +119,7 @@ class PublisherController extends Controller
             return redirect()->back()->withErrors($validator);
         }
         $publisher->edit($request);
-        return redirect()->route('publisher.index')->with('success_message', 'Sėkmingai pakeistas.');
+        return redirect()->route('publisher.index')->with('success_message', 'Updated successfully.');
     }
 
     /**
