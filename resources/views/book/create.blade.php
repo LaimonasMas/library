@@ -27,7 +27,7 @@
 
                         <div class="form-group">
                             <label>About: </label>
-                            <textarea class="form-control" id="summernote" name="book_about">{{old('book_about')}}"</textarea>
+                            <textarea class="form-control" id="summernote" name="book_about">{{old('book_about')}}</textarea>
                             <small class="form-text text-muted">Please enter book description</small>
                         </div>
                         <div class="form-group">
@@ -35,6 +35,14 @@
                             <select class="form-control" name="author_id">
                                 @foreach ($authors as $author)
                                 <option value="{{$author->id}}">{{$author->name}} {{$author->surname}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Publisher </label>
+                            <select class="form-control" name="publisher_id">
+                                @foreach ($publishers as $publisher)
+                                <option value="{{$publisher->id}}">{{$publisher->title}} </option>
                                 @endforeach
                             </select>
                         </div>
