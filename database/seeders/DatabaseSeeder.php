@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             DB::table('authors')->insert([
                 'name' => $faker->firstName,
                 'surname' => $faker->lastName,
+                'portret' => $faker->imageUrl(100, 150),
             ]);
         }
 
@@ -49,5 +50,7 @@ class DatabaseSeeder extends Seeder
                 'publisher_id' => rand(1, $publishers),
             ]);
         }
+
+
     }
 }

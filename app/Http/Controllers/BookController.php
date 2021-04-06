@@ -7,7 +7,7 @@ use App\Models\Book;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Validator;
-
+use PDF;
 
 class BookController extends Controller
 {
@@ -29,8 +29,7 @@ class BookController extends Controller
         if ($request->author_id) {
             $books = Book::where('author_id', $request->author_id)->get();
             $filterBy = $request->author_id;
-        }
-        else {
+        } else {
             $books = Book::all();
         }
 
@@ -38,18 +37,17 @@ class BookController extends Controller
         if ($request->sort && 'asc' == $request->sort) {
             $books = $books->sortBy('title');
             $sortBy = 'asc';
-        }
-        elseif ($request->sort && 'desc' == $request->sort) {
+        } elseif ($request->sort && 'desc' == $request->sort) {
             $books = $books->sortByDesc('title');
             $sortBy = 'desc';
         }
-        
+
         return view('book.index', [
             'books' => $books,
             'authors' => $authors,
             'filterBy' => $filterBy ?? 0,
             'sortBy' => $sortBy ?? ''
-            ]);
+        ]);
     }
 
     /**
@@ -143,7 +141,7 @@ class BookController extends Controller
                 'book_title' => ['required', 'min:1', 'max:64'],
                 'book_isbn' => ['required', 'min:10', 'max:13'],
                 'book_pages' => ['required', 'integer', 'min:1', 'max:10000'],
-                'book_about' => ['required', 'min:1', 'max:200'] 
+                'book_about' => ['required', 'min:1', 'max:200']
             ],
 
             [
@@ -177,5 +175,11 @@ class BookController extends Controller
     {
         $book->delete();
         return redirect()->route('book.index')->with('success_message', 'Book was deleted.');
+    }
+
+    public function pdf(Book $book)
+    {
+        $pdf = PDF::loadView('book.pdf', ['book' => $book]); // standartinis view
+        return $pdf->download('book-id'.$book->id.'.pdf'); // pdf failo pavadinimas
     }
 }

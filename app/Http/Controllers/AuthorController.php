@@ -129,6 +129,12 @@ class AuthorController extends Controller
             $request->flash();
             return redirect()->back()->withErrors($validator);
         }
+        // foto ikelimas su bug'ais
+        $file = $request->file('author_portret');
+        $name = $file->getClientOriginalName();
+        $file->move(public_path('img'), $name);
+        $author->portret = 'http://localhost/nd/library/public/img/'.$name;
+
         $author->edit($request);
         return redirect()->route('author.index')->with('success_message', 'Sėkmingai pakeistas.');
     }
