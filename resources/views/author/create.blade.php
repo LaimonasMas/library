@@ -19,11 +19,10 @@
                             <input type="text" class="form-control" name="author_surname" value="{{old('author_surname')}}">
                             <small class="form-text text-muted">Please enter author surname</small>
                         </div>
-                                                <div class="form-group">
+                        <div class="form-group">
                             <label>Portrait: </label>
-
                             <input type="file" class="form-control" name="author_portret">
-                            <small class="form-text text-muted">Please upload author portret</small>
+                            <small class="form-text text-muted">Please upload author portrait</small>
                         </div>
                         @csrf
                         <button class="btn btn-outline-success btn-sm" type="submit">ADD</button>

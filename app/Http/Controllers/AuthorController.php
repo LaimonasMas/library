@@ -76,13 +76,11 @@ class AuthorController extends Controller
             return redirect()->back()->withErrors($validator);
         }
         // foto ikelimas su bug'ais
-        $file = $request->file('author_portret'); //failo aprasas
+
         // dd($file);
         // $name = $file->getClientOriginalName(); // originalus pavadinimas
 
-        $name = rand(100000, 9999999999) . '.' . $file->getClientOriginalExtension(); // random pavadinimas
-        $file->move(public_path('img'), $name); // perkeliam is tmp folderio i ten kur reikia
-        $author->portret = 'http://localhost/nd/library/public/img/' . $name; // irasome i db + kelias iki paveiksliuko,
+
 
         Author::create($request);
         return redirect()->route('author.index')->with('success_message', 'The author was created. Nice job!');
@@ -138,14 +136,11 @@ class AuthorController extends Controller
             return redirect()->back()->withErrors($validator);
         }
         // foto ikelimas su bug'ais
-        $file = $request->file('author_portret'); //failo aprasas
+   
         // dd($file);
         // $name = $file->getClientOriginalName(); // originalus pavadinimas
 
-        $name = rand(100000, 9999999999) . '.' . $file->getClientOriginalExtension(); // random pavadinimas
-        $file->move(public_path('img'), $name); // perkeliam is tmp folderio i ten kur reikia
-        $author->portret = 'http://localhost/nd/library/public/img/' . $name; // irasome i db + kelias iki paveiksliuko
-
+        
         $author->edit($request);
         return redirect()->route('author.index')->with('success_message', 'Sėkmingai pakeistas.');
     }
@@ -161,17 +156,15 @@ class AuthorController extends Controller
         if ($author->authorBooks->count() !== 0) {
             return redirect()->route('author.index')->with('info_message', 'The author has books and cannot be deleted.');
         }
-        // $file = $request->file('author_portret'); //failo aprasas
-        // $file->move(public_path('img'), $name); // perkeliam is tmp folderio i ten kur reikia
-        // $author->portret = 'http://localhost/nd/library/public/img/' . $name; // irasome i db + kelias iki paveiksliuko
 
         $addedLink = 'http://localhost/nd/library/public/img/'; // pridetas linkas
 
         $imgName = str_replace($addedLink, '', $author->portret); // prideta linka istrinam 
-        if (file_exists(public_path('img').'/'.$imgName) && is_file(public_path('img').'/'.$imgName)) {
-            unlink(public_path('img').'/'.$imgName); // istrinam
+
+        if (file_exists(public_path('img') . '/' . $imgName) && is_file(public_path('img') . '/' . $imgName)) {
+            unlink(public_path('img') . '/' . $imgName); // istrinam
         }
-        
+
         $author->delete();
         return redirect()->route('author.index')->with('success_message', 'The author was deleted.');
     }
