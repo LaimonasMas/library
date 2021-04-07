@@ -27,11 +27,13 @@ class BookController extends Controller
 
         //FILTRAVIMAS
         if ($request->author_id) {
-            $books = Book::where('author_id', $request->author_id)->get();
+            // $books = Book::where('author_id', $request->author_id)->get();
+            $books = Book::where('author_id', $request->author_id)->paginate(3); //vietoje get() reiketu deti paginate(30), bet pas mane kazkodel neveikia
             $filterBy = $request->author_id;
+            $books->appends(['author_id' => $request->author_id]);
         } else {
             // $books = Book::all();
-            $books = Book::paginate(30);
+            $books = Book::paginate(10);
         }
 
         //RUSIAVIMAS
