@@ -20,7 +20,7 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-    // rusiavimas prasideda --------------
+        // rusiavimas prasideda --------------
 
         if ('name' == $request->sort) {
             $authors = Author::orderBy('name')->get();
@@ -32,8 +32,8 @@ class AuthorController extends Controller
 
         // $authors = Author::all(); // $authors yra kolekcija
         // $authors = Author::orderBy('surname', 'desc')->get();
-                                            // be desc rusius nuo a iki z
-    // rusiavimas baigiasi ----------------                                          
+        // be desc rusius nuo a iki z
+        // rusiavimas baigiasi ----------------                                          
 
         return view('author.index', ['authors' => $authors]);
     }
@@ -54,7 +54,7 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Author $author)
     {
         $validator = Validator::make(
             $request->all(),
@@ -66,7 +66,7 @@ class AuthorController extends Controller
 
             [
                 'author_name.required' => 'The author name must be entered.',
-                'author_surname.required' => 'The author surname must be entered.',  
+                'author_surname.required' => 'The author surname must be entered.',
                 'author_surname.min' => 'The author surname must be at least 3 characters.'
             ]
         );
@@ -75,6 +75,14 @@ class AuthorController extends Controller
             $request->flash();
             return redirect()->back()->withErrors($validator);
         }
+        // foto ikelimas su bug'ais
+        $file = $request->file('author_portret'); //failo aprasas
+        // dd($file);
+        // $name = $file->getClientOriginalName(); // originalus pavadinimas
+
+        $name = rand(100000, 9999999999) . '.' . $file->getClientOriginalExtension(); // random pavadinimas
+        $file->move(public_path('img'), $name); // perkeliam is tmp folderio i ten kur reikia
+        $author->portret = 'http://localhost/nd/library/public/img/' . $name; // irasome i db + kelias iki paveiksliuko,
 
         Author::create($request);
         return redirect()->route('author.index')->with('success_message', 'The author was created. Nice job!');
@@ -130,10 +138,13 @@ class AuthorController extends Controller
             return redirect()->back()->withErrors($validator);
         }
         // foto ikelimas su bug'ais
-        $file = $request->file('author_portret');
-        $name = $file->getClientOriginalName();
-        $file->move(public_path('img'), $name);
-        $author->portret = 'http://localhost/nd/library/public/img/'.$name;
+        $file = $request->file('author_portret'); //failo aprasas
+        // dd($file);
+        // $name = $file->getClientOriginalName(); // originalus pavadinimas
+
+        $name = rand(100000, 9999999999) . '.' . $file->getClientOriginalExtension(); // random pavadinimas
+        $file->move(public_path('img'), $name); // perkeliam is tmp folderio i ten kur reikia
+        $author->portret = 'http://localhost/nd/library/public/img/' . $name; // irasome i db + kelias iki paveiksliuko
 
         $author->edit($request);
         return redirect()->route('author.index')->with('success_message', 'Sėkmingai pakeistas.');
@@ -150,6 +161,17 @@ class AuthorController extends Controller
         if ($author->authorBooks->count() !== 0) {
             return redirect()->route('author.index')->with('info_message', 'The author has books and cannot be deleted.');
         }
+        // $file = $request->file('author_portret'); //failo aprasas
+        // $file->move(public_path('img'), $name); // perkeliam is tmp folderio i ten kur reikia
+        // $author->portret = 'http://localhost/nd/library/public/img/' . $name; // irasome i db + kelias iki paveiksliuko
+
+        $addedLink = 'http://localhost/nd/library/public/img/'; // pridetas linkas
+
+        $imgName = str_replace($addedLink, '', $author->portret); // prideta linka istrinam 
+        if (file_exists(public_path('img').'/'.$imgName) && is_file(public_path('img').'/'.$imgName)) {
+            unlink(public_path('img').'/'.$imgName); // istrinam
+        }
+        
         $author->delete();
         return redirect()->route('author.index')->with('success_message', 'The author was deleted.');
     }

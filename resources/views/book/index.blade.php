@@ -61,6 +61,11 @@
                         </li>
                         @endforeach
                     </ul>
+<div class="paginator-container">
+                    {{$books->links()}}
+<div>
+
+
                 </div>
             </div>
         </div>

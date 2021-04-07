@@ -10998,4 +10998,8 @@ a.text-dark:focus {
   padding-right: 15px;
 }
 
+.paginator-container {
+  margin: 12px 0;
+}
+
 

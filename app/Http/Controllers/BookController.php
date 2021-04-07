@@ -30,7 +30,8 @@ class BookController extends Controller
             $books = Book::where('author_id', $request->author_id)->get();
             $filterBy = $request->author_id;
         } else {
-            $books = Book::all();
+            // $books = Book::all();
+            $books = Book::paginate(30);
         }
 
         //RUSIAVIMAS
